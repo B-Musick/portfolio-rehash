@@ -1,0 +1,332 @@
+:root{
+    --top-color:rgb(78, 76, 76);
+    --bottom-color:gainsboro;
+    --title-font-size: 4.0vw;
+
+
+    /* TOPIC VARIABLES */
+    --topic-link-font-size: 25px;
+
+    /* Space the word away from the rect */
+    --topic-link-word-rect-space-between: 1%;
+
+    /* Used on both link and link rect */
+    --topic-link-rect-from-bottom-base-height:14%;
+    --topic-vertical-spacing-multiplier: 6%;
+    --topic-rect-base-width: 12%; 
+    --topic-horizontal-spacing-multiplier: 5%;
+
+    /* Add small distance to stagger the topics in step fashion */
+    --topic-title-base-right-distance: 10%;
+
+    /* FOLDED LABLE VARIABLES */
+    --topic-rect-folded-width: 4%;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bottom-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+/***************************** TOP PAGE CONTAINER  ****************************
+ * 
+*/
+#top{
+    transform: skew(-5deg) rotate(-12deg) translateY(-15%) ;
+    background-color: var(--top-color);
+    height: 78%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 4%;
+    padding-right: 4%;
+    position: absolute;
+    top: -20%;
+    left: -6.0%;
+}
+
+/* top-retract will retract the top to the size of the associated title in the
+top left corner of the page */
+.top-retract-animation{
+    animation: retractTop 1s forwards;
+    animation-delay: 1s;
+}
+
+@keyframes retractTop{
+    100%{
+        width: 87px;
+        transform: none;
+        height: 60px;
+        top: 0%;
+        padding-left: 3%;
+        padding-right: 3.1%;
+    }
+}
+
+/**************************** BRENDAN MUSICK TITLE  ***************************
+ * 
+*/
+#name-icon{
+    position: absolute;
+    left: 10%;
+    margin-bottom: -1.0%;
+    font-size: var(--title-font-size);
+    color: var(--bottom-color);
+}
+
+.name-icon-animation{
+    /* JS will add this when one of the links clicked, moves name to left */
+    animation: moveName;
+    animation-duration: 2s;
+    /* https://stackoverflow.com/questions/12991164/maintaining-the-final-state-at-end-of-a-css3-animation */
+    animation-fill-mode: forwards;
+}
+
+/* When the link is clicked, the titles retract, need to remove their visibility
+so that when the background retracts they arent there anymore */
+@keyframes moveName{
+    100%{
+        left:-100%;
+        visibility: hidden;
+    }
+    50%{
+        visibility: hidden;
+    }
+    0%{
+        left: 2%;
+    }
+}
+
+/************************* FULL STACK DEVELOPER TITLE  ************************
+ * 
+*/
+#title-icon{
+    position: absolute;
+    margin-bottom: -3.4%;
+    right: 10.4%;
+    font-size: var(--title-font-size);
+    color:var(--top-color);
+}
+
+.title-icon-animation{
+    /* JS will add this when one of the links clicked, moves title to right */
+    animation: moveTitle;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes moveTitle{
+    100%{
+        right:-100%;
+        visibility: hidden;
+    }
+    50%{
+        visibility: hidden;
+    }
+    0%{
+        right: 2.4%;
+    }
+}
+
+/************************** TOPIC LINKS ****************************************
+ * Topic links 'about, projects'
+ */
+
+.topic-link{
+    /* Set basic style for the lettering in all links */
+    font-size: var(--topic-link-font-size);
+    font-weight: 200;
+    position: absolute;
+    color: var(--top-color);
+    right: 10%;
+}
+
+/* Move the topic link out of the right screen when pressed */
+.topic-link-remove-animation{
+    animation: moveTopicLinkName;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes moveTopicLinkName{
+    100%{
+        right:-50%;
+    }
+    0%{
+        position: absolute;
+        right: 10%;
+    }
+}
+
+#current-topic-title{
+    /* Empty topic title which will be shown at top right when topic pressed */
+    position: absolute;
+    left: -100%;
+    color:white;
+    font-size: 30px;
+    visibility: hidden;
+}
+
+.set-current-topic-title-top-left{
+    animation: setNewTopicTitle;
+    animation-delay: 1s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes setNewTopicTitle{
+    100%{
+        left: 2%;
+        top: 2%;
+        visibility: visible;
+        z-index: 1;
+    }
+    50%{
+        visibility: visible;
+    }
+    0%{
+        left: -100%;
+    }
+}
+
+/******************** Retract non-clicked topics to side ***********************/
+.label-folded{
+    animation: foldNonClickedLabel;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes foldNonClickedLabel{
+    100%{
+        right: calc(var(--topic-rect-folded-width) 
+        + (var(--topic-horizontal-spacing-multiplier) * 0) 
+        + var(--topic-link-word-rect-space-between));
+    }
+}
+
+.rect-folded{
+    animation: foldNonClickedRect;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes foldNonClickedRect{
+    100%{
+        width: calc(var(--topic-rect-folded-width));
+    }
+}
+
+.rect-remove{
+    animation: removeClickedRect;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes removeClickedRect{
+    100%{
+        width: 0;
+    }
+}
+
+/*********************** Style original link and rect sizes ******************/
+.info-rect{
+    /* Styles all the rectangles */
+    height: 1px;
+    background: rgb(72, 72, 66);
+    position: absolute;
+    right: 0%;
+}
+
+/* Change the multiple in 'bottom' which multiplies the '--topic-vertical-spacing-multiplier'
+variable, with highest starting at top so links are stacked vertically. Add one to the  */
+
+/***** ABOUT *****/
+#about-link{
+    /* Styles the about link height */
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+            + (var(--topic-vertical-spacing-multiplier) * 4));
+    right: calc(var(--topic-rect-base-width) 
+            + (var(--topic-horizontal-spacing-multiplier) * 0) 
+            + var(--topic-link-word-rect-space-between));
+}
+
+#about-rect{
+    width: calc(var(--topic-rect-base-width) + (var(--topic-horizontal-spacing-multiplier) * 0));
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+                + (var(--topic-vertical-spacing-multiplier) * 4) 
+                + var(--topic-link-font-size)/2);
+}
+
+/***** COURSES *****/
+#courses-link{
+    /* Styles the about link height */
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) + (var(--topic-vertical-spacing-multiplier) * 3));
+    right: calc(var(--topic-rect-base-width) 
+                + (var(--topic-horizontal-spacing-multiplier) * 1
+                + var(--topic-link-word-rect-space-between)));
+}
+
+#courses-rect{
+    width: calc(var(--topic-rect-base-width) + (var(--topic-horizontal-spacing-multiplier) * 1));
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+                + (var(--topic-vertical-spacing-multiplier) * 3) 
+                + var(--topic-link-font-size)/2);
+}
+
+/***** TECHNOLOGY *****/
+#technology-link{
+    /* Styles the about link height */
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+            + (var(--topic-vertical-spacing-multiplier) * 2));
+    right: calc(var(--topic-rect-base-width) 
+            + (var(--topic-horizontal-spacing-multiplier) * 2 
+            + var(--topic-link-word-rect-space-between)));
+}
+
+#technology-rect{
+    width: calc(var(--topic-rect-base-width) + (var(--topic-horizontal-spacing-multiplier) * 2));
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+                + (var(--topic-vertical-spacing-multiplier) * 2) 
+                + var(--topic-link-font-size)/2);
+}
+
+/***** LEARNING *****/
+#learning-link{
+    /* Styles the about link height */
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+            + (var(--topic-vertical-spacing-multiplier) * 1));
+    right: calc(var(--topic-rect-base-width) 
+            + (var(--topic-horizontal-spacing-multiplier) * 4 
+            + var(--topic-link-word-rect-space-between)));
+}
+
+#learning-rect{
+    width: calc(var(--topic-rect-base-width) + (var(--topic-horizontal-spacing-multiplier) * 4));
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+                + (var(--topic-vertical-spacing-multiplier) * 1) 
+                + var(--topic-link-font-size)/2);
+}
+
+/***** PROJECTS *****/
+#projects-link{
+    /* Styles the about link height */
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+            + (var(--topic-vertical-spacing-multiplier) * 0));
+    right: calc(var(--topic-rect-base-width) 
+            + (var(--topic-horizontal-spacing-multiplier) * 5 
+            + var(--topic-link-word-rect-space-between)));
+}
+
+#projects-rect{
+    width: calc(var(--topic-rect-base-width) + (var(--topic-horizontal-spacing-multiplier) * 5));
+    bottom: calc(var(--topic-link-rect-from-bottom-base-height) 
+                + (var(--topic-vertical-spacing-multiplier) * 0) 
+                + var(--topic-link-font-size)/2);
+}
+
+
+
