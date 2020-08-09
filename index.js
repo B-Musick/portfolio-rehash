@@ -7,12 +7,15 @@ let titleIcon = document.getElementById("title-icon");
 let currentTopicTitleContainer = document.getElementById("current-topic-title");
 
 /********************** PRINT TOPICS **************************/
-let topics = ["about","courses","technology","learning","projects"];
+let topics = ["technology", "courses", "learning", "projects","about"];
 
 // Spacing
-let topicBaseSpacing = 14; // Represents percent
+let topicBaseSpacingFromBottom = 14; // Represents percent
 let verticalSpacing = 6;
-let rectBaseWidth = 12;
+let rectBaseWidth = 18;
+let horizontalWordSpacingMultiplier = 5;
+let wordRectSpacing = 1;
+let fontSize = 4;
 
 topics.forEach((topic,index)=>{
     // Loop through the topics and add a rect and associated topic name
@@ -20,11 +23,11 @@ topics.forEach((topic,index)=>{
     // Create the rect associated with the link
     let rect = document.createElement("div");
     rect.className = "info-rect";
-    rect.id = topic+"-rect";
+    // rect.id = topic+"-rect";
 
     // Add CSS styling
-    rect.style.width = rectBaseWidth+"%";
-    rect.style.bottom = topicBaseSpacing+verticalSpacing*(index%topics.length)+"%";
+    rect.style.width = rectBaseWidth+(horizontalWordSpacingMultiplier*(topics.length-index))+"%";
+    rect.style.bottom = topicBaseSpacingFromBottom+verticalSpacing*(index%topics.length)+"%";
 
     topicsContainer.appendChild(rect); // Add to the container
 
@@ -34,9 +37,11 @@ topics.forEach((topic,index)=>{
 
     // Add class name to link name
     linkTopic.className = "topic-link";
-    linkTopic.id = topic+"-link";
+    // linkTopic.id = topic+"-link";
 
-    linkTopic.style.bottom = topicBaseSpacing + verticalSpacing * (index % topics.length) + "%";
+    linkTopic.style.bottom = topicBaseSpacingFromBottom + verticalSpacing * (index % topics.length) - fontSize/2 + "%";
+    linkTopic.style.right = rectBaseWidth + (horizontalWordSpacingMultiplier *(topics.length-index))+wordRectSpacing+"%";
+
     linkTopic.innerHTML = topic.toUpperCase();
     link.appendChild(linkTopic);
 
