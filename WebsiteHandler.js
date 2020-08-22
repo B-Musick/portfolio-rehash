@@ -1,0 +1,1 @@
+let topicHandler = new TopicHandler();

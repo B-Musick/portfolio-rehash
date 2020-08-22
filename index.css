@@ -3,7 +3,6 @@
     --bottom-color:gainsboro;
     --title-font-size: 4.0vw;
 
-
     /* TOPIC VARIABLES */
     --topic-link-font-size: 25px;
 
@@ -42,8 +41,7 @@ body{
     width: 100%;
     display: flex;
     align-items: flex-end;
-    padding-left: 4%;
-    padding-right: 4%;
+    padding: 0% 4%;
     position: absolute;
     top: -20%;
     left: -6.0%;
@@ -67,9 +65,7 @@ top left corner of the page */
     }
 }
 
-/**************************** BRENDAN MUSICK TITLE  ***************************
- * 
-*/
+/**************************** BRENDAN MUSICK TITLE  ***************************/
 #name-icon{
     position: absolute;
     left: 10%;
@@ -89,21 +85,16 @@ top left corner of the page */
 /* When the link is clicked, the titles retract, need to remove their visibility
 so that when the background retracts they arent there anymore */
 @keyframes moveName{
-    100%{
+    100% {
         left:-100%;
         visibility: hidden;
     }
-    50%{
+    50% {
         visibility: hidden;
-    }
-    0%{
-        left: 2%;
     }
 }
 
-/************************* FULL STACK DEVELOPER TITLE  ************************
- * 
-*/
+/************************* FULL STACK DEVELOPER TITLE  *************************/
 #title-icon{
     position: absolute;
     margin-bottom: -3.4%;
@@ -120,15 +111,12 @@ so that when the background retracts they arent there anymore */
 }
 
 @keyframes moveTitle{
-    100%{
+    100% {
         right:-100%;
         visibility: hidden;
     }
-    50%{
+    50% {
         visibility: hidden;
-    }
-    0%{
-        right: 2.4%;
     }
 }
 
@@ -156,10 +144,6 @@ so that when the background retracts they arent there anymore */
     100%{
         right:-50%;
     }
-    0%{
-        position: absolute;
-        right: 10%;
-    }
 }
 
 #current-topic-title{
@@ -179,17 +163,14 @@ so that when the background retracts they arent there anymore */
 }
 
 @keyframes setNewTopicTitle{
+    50%{
+        visibility: visible;
+    }
     100%{
         left: 2%;
         top: 2%;
         visibility: visible;
         z-index: 1;
-    }
-    50%{
-        visibility: visible;
-    }
-    0%{
-        left: -100%;
     }
 }
 
@@ -232,6 +213,30 @@ so that when the background retracts they arent there anymore */
     }
 }
 
+/* When user clicks new lable, need original to come from the right to its normal spot
+Used in labelNotClicked() */
+.re-add-label-from-right-when-new-topic-clicked{
+    animation: labelFromRight;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes labelFromRight{
+    100%{
+        right: calc(var(--topic-rect-folded-width) 
+        + (var(--topic-horizontal-spacing-multiplier) * 0) 
+        + var(--topic-link-word-rect-space-between));
+    }
+    0%{
+        right:-50%;
+    }
+}
+
+.moveHeaderLabelOutsideScreen{
+    animation: moveName;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
 /*********************** Style original link and rect sizes ******************/
 .info-rect{
     /* Styles all the rectangles */
@@ -241,8 +246,6 @@ so that when the background retracts they arent there anymore */
     right: 0%;
 }
 
-/* Change the multiple in 'bottom' which multiplies the '--topic-vertical-spacing-multiplier'
-variable, with highest starting at top so links are stacked vertically. Add one to the  */
 
 
 
